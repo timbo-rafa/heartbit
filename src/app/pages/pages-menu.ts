@@ -8,8 +8,42 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'FEATURES',
+    title: 'PATIENTS',
     group: true,
+  },
+  {
+    title: 'List Patients',
+    link: '/pages/patients/list',
+    icon: 'ion-person-stalker',
+  },
+  {
+    title: 'Add Patient',
+    link: '/pages/patients/add',
+    icon: 'ion-person-add',
+  },
+  {
+    title: 'View Patient',
+    link: '/pages/patients/view',
+    icon: 'ion-person',
+  },
+  {
+    title: 'RECORDS',
+    group: true,
+  },
+  {
+    title: 'List Records',
+    link: '/pages/records/list',
+    icon: 'nb-list',
+  },
+  {
+    title: 'Add Record',
+    link: '/pages/patients/add',
+    icon: 'nb-edit',
+  },
+  {
+    title: 'View Record',
+    link: '/pages/patients/view',
+    icon: 'nb-compose',
   },
   {
     title: 'UI Features',
