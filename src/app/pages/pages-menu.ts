@@ -8,43 +8,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'PATIENTS',
-    group: true,
-  },
-  {
-    title: 'List Patients',
-    link: '/pages/patients/list',
-    icon: 'ion-person-stalker',
-  },
-  {
-    title: 'Add Patient',
-    link: '/pages/patients/add',
-    icon: 'ion-person-add',
-  },
-  {
-    title: 'View Patient',
-    link: '/pages/patients/view',
-    icon: 'ion-person',
-  },
-  {
-    title: 'RECORDS',
-    group: true,
-  },
-  {
-    title: 'List Records',
-    link: '/pages/records/list',
-    icon: 'nb-list',
-  },
-  {
-    title: 'Add Record',
-    link: '/pages/patients/add',
-    icon: 'nb-edit',
-  },
-  {
-    title: 'View Record',
-    link: '/pages/patients/view',
-    icon: 'nb-compose',
-  },
+    title: 'Patients',
+    icon: 'nb-person',
+    children: [
+      {
+        title: 'List Patients',
+        icon: 'ion-person-stalker',
+        link: '/pages/patients/list-patients',
+      },
+      {
+        title: 'Add Patient',
+        icon: 'ion-person-add',
+        link: '/pages/patients/add-patients',
+      },
+      {
+        title: 'View Patients',
+        icon: 'ion-person',
+        link: '/pages/patients/view-patients',
+      },
+    ]},
   {
     title: 'UI Features',
     icon: 'nb-keypad',
@@ -158,11 +140,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Tables',
+    title: 'Patients',
     icon: 'nb-tables',
     children: [
       {
-        title: 'Smart Table',
+        title: 'List Patients',
         link: '/pages/tables/smart-table',
       },
     ],

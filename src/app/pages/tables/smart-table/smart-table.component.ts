@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
 import { SmartTableService } from '../../../@core/data/smart-table.service';
+import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
 
 @Component({
   selector: 'ngx-smart-table',
@@ -30,38 +31,42 @@ export class SmartTableComponent {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
-      },
-      firstName: {
-        title: 'First Name',
-        type: 'string',
-      },
-      lastName: {
-        title: 'Last Name',
-        type: 'string',
-      },
-      username: {
-        title: 'Username',
-        type: 'string',
-      },
-      email: {
-        title: 'E-mail',
+      name: {
+        title:'Name',
         type: 'string',
       },
       age: {
         title: 'Age',
-        type: 'number',
+        type: 'number'
       },
-    },
+      doctor: {
+        title: 'Doctor',
+        type: 'string'
+      },
+      insurance: {
+        title: 'Insurance Company',
+        type: 'string'
+      },
+      createdAt: {
+        title: 'Created at',
+        type: 'string',
+      }
+    }
   };
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: SmartTableService) {
-    const data = this.service.getData();
-    this.source.load(data);
+  constructor(private service: HeartbitApiService) {
+    const data = this.service.listPatientsMock()
+    this.source.load(data)
+
+    this.service.listPatients().subscribe(
+      patients => this.source.load(patients),
+      err => console.log('listPatients subcribe ERROR', err)
+    )
+    //this.service.listPatients().subscribe( function  (patients) {
+    //  this.source.load(patients)
+    //}.bind(this))
   }
 
   onDeleteConfirm(event): void {

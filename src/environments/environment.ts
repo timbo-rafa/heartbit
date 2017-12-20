@@ -10,4 +10,6 @@
 
 export const environment = {
   production: false,
+
+  heartbitApiUrl: "http://127.0.0.1:8888",
 };

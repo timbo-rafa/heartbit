@@ -35,6 +35,10 @@ const routes: Routes = [{
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+  }, {
+    // heartbit
+    path: 'patients',
+    loadChildren: './patients/patients.module#PatientsModule',
   }],
 }];
 
