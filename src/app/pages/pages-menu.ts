@@ -7,6 +7,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
     home: true,
   },
+  /*
   {
     title: 'Patients',
     icon: 'nb-person',
@@ -139,6 +140,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  */
   {
     title: 'Patients',
     icon: 'nb-tables',
@@ -149,6 +151,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  /*
   {
     title: 'Auth',
     icon: 'nb-locked',
@@ -171,4 +174,5 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  */
 ];
