@@ -6,6 +6,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { PatientsModule } from './patients/patients.module';
 
+import { DatePipe } from '@angular/common'
+
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];
@@ -20,6 +22,9 @@ const PAGES_COMPONENTS = [
   declarations: [
     ...PAGES_COMPONENTS,
   ],
+  providers: [
+    DatePipe,
+  ]
 })
 export class PagesModule {
 }
