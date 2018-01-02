@@ -9,8 +9,8 @@ const patientsUrl = apiurl + '/patients'
 export class HeartbitApiService {
 
   data = [
-    { name: 'john', age: 30, doctor: 'Smith', insurance: 'none', createdAt: Date.now() },
-    { name: 'luce', age: 18, doctor: 'Smith', insurance: 'guardme', createdAt: Date.now(), garbage: 'garbage'}
+    //{ name: 'john', age: 30, doctor: 'Smith', insurance: 'none', createdAt: Date.now().toString() },
+    { name: 'luce', age: 18, doctor: 'Smith', insurance: 'guardme', createdAt: Date.now().toString() , garbage: 'garbage'}
   ]
 
   constructor( private http: Http) {
@@ -18,8 +18,8 @@ export class HeartbitApiService {
 
   public listPatientsMock() {
     this.listPatients().subscribe(
-      res => console.log('res>', res),
-      error => console.log('err', error)
+      res => console.log('listPatients:', res),
+      error => console.error('listPatients error:', error)
     )
     return this.data;
   }
