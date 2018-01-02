@@ -18,7 +18,7 @@ export class SmartTableComponent {
 
   settings = {
     add: {
-      addButtonContent: '<i class="nb-plus"></i>',
+      addButtonContent:    '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
       cancelButtonContent: '<i class="nb-close"></i>',
       confirmCreate: true
@@ -34,6 +34,10 @@ export class SmartTableComponent {
       confirmDelete: true,
     },
     columns: {
+      id: {
+        title:'ID',
+        'type': 'string',
+      },
       name: {
         title:'Name',
         type: 'string',
@@ -73,40 +77,73 @@ export class SmartTableComponent {
 
   constructor(private service: HeartbitApiService, private datePipe: DatePipe) {
     const data = this.service.listPatientsMock()
-    this.source.load(data)
+    this.refresh()
+  }
 
+  private refresh() {
     this.service.listPatients().subscribe(
-      patients => this.source.load(patients),
+      patients => {
+        this.source.load(patients)
+        
+      },
       err => console.error('listPatients subcribe ERROR', err)
-    )
-    //this.service.listPatients().subscribe( function  (patients) {
-    //  this.source.load(patients)
-    //}.bind(this))
+    );
+  }
+
+  private parseDate(event) {
+    var createdAtDate = new Date(event.newData['createdAt'])
+    if ( isNaN(createdAtDate.getTime())) { //valid date?
+      createdAtDate = new Date(Date.now())
+    } else {
+      // assume canada time
+      //createdAtDate.setTime(createdAtDate.getTime() + (5*60*60*1000)) //add 5 hours
+    }
+    event.newData['createdAt'] = createdAtDate
   }
 
   onDeleteConfirm(event) {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+    var deletePatientObs = this.service.deletePatient(event.data.id)
+    
+    deletePatientObs.subscribe(
+      response => {
+        event.confirm.resolve()
+      },
+      error => {
+        console.error('deletePatient:', error)
+        event.confirm.reject()
+      }
+    )
   }
 
   onSaveConfirm(event) {
-    if (window.confirm('Are you sure you want to save?')) {
-      event.newData['name'] += ' + added in code';
-      event.confirm.resolve(event.newData);
-    } else {
-      event.confirm.reject();
-    }
+    this.parseDate(event)
+    var editPatientObs = this.service.editPatient(event.data.id, event.newData)
+    editPatientObs.subscribe(
+      response => {
+        console.log('editPatient:', response.json())
+        event.confirm.resolve(event.newData)
+      },
+      error => {
+        console.error('editPatient:', error)
+        event.confirm.reject()
+      }
+    )
   }
 
   onCreateConfirm(event) {
-    if (window.confirm('Are you sure you want to create?')) {
-      event.newData['name'] += ' + added in code';
-      event.confirm.resolve(event.newData);
-    } else {
-      event.confirm.reject();
-    }
+    this.parseDate(event)
+
+    var addPatientObs = this.service.addPatient(event.newData)
+    addPatientObs.subscribe(
+      response => {
+        console.log('addPatient:', response.json())
+        event.confirm.resolve(event.newData)
+      },
+      error => {
+        console.error('addPatient:', error._body)
+        event.confirm.reject()
+      },
+      () => this.refresh()
+    )
   }
 }
