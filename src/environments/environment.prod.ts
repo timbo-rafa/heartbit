@@ -6,5 +6,5 @@
 export const environment = {
   production: true,
 
-  heartbitApiUrl: "http://127.0.0.1:8888",
+  heartbitApiUrl: "https://heartbit.herokuapp.com",
 };
