@@ -33,7 +33,7 @@ const routes: Routes = [{
     loadChildren: './tables/tables.module#TablesModule',
   }, {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'tables',
     pathMatch: 'full',
   }, {
     // heartbit

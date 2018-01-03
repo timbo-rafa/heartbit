@@ -10,6 +10,10 @@ const routes: Routes = [{
   children: [{
     path: 'smart-table',
     component: SmartTableComponent,
+  }, {
+    path: '',
+    redirectTo: 'smart-table',
+    pathMatch: 'full',
   }],
 }];
 
