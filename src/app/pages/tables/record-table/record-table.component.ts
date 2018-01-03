@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { SmartTableService } from '../../../@core/data/smart-table.service';
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
 
 @Component({
-  selector: 'ngx-smart-table',
-  templateUrl: './smart-table.component.html',
+  selector: 'record-table',
+  templateUrl: './record-table.component.html',
   styles: [`
     nb-card {
       transform: translate3d(0, 0, 0);
     }
   `],
 })
-export class SmartTableComponent {
+export class RecordTableComponent {
 
   settings = {
     add: {
@@ -35,25 +35,41 @@ export class SmartTableComponent {
       confirmDelete: true,
     },
     columns: {
+      patientId: {
+        title:'Patient',
+        'type': 'string',
+      },
       id: {
         title:'ID',
         'type': 'string',
       },
-      name: {
-        title:'Name',
+      lab: {
+        title:'Lab',
         type: 'string',
-      },
-      age: {
-        title: 'Age',
-        type: 'number'
       },
       doctor: {
         title: 'Doctor',
         type: 'string'
       },
-      insurance: {
-        title: 'Insurance Company',
-        type: 'string'
+      glucose: {
+        title: 'Glucose',
+        type:'number',
+      },
+      redBloodCells: {
+        title: 'Red Blood Cells',
+        type:'number',
+      },
+      whiteBloodCells: {
+        title: 'White Blood Cells',
+        type:'number',
+      },
+      platelet: {
+        title: 'Platelet',
+        type:'number',
+      },
+      iron: {
+        title: 'Iron',
+        type:'number',
       },
       createdAt: {
         title: 'Created at',
@@ -75,19 +91,31 @@ export class SmartTableComponent {
   };
 
   source: LocalDataSource = new LocalDataSource();
+  patientId: string;
 
-  constructor(private service: HeartbitApiService, private datePipe: DatePipe, private router: Router) {
-    const data = this.service.listPatientsMock()
-    this.refresh()
+  constructor(private service: HeartbitApiService, private datePipe: DatePipe,
+              private activatedRoute: ActivatedRoute) {
+    console.log()
+    //this.parseParams(activatedRoute)
   }
 
-  private refresh() {
-    this.service.listPatients().subscribe(
-      patients => {
-        this.source.load(patients)
-        
+  ngOnInit() {
+    this.activatedRoute.params.subscribe(
+      (params: Params) => {
+        console.log('params', params)
+        this.patientId = params['patientId']
+        console.log('got patientId', this.patientId)
       },
-      err => console.error('listPatients subcribe ERROR', err)
+      null, //error handler
+      () => this.refresh()
+    )
+  }
+  private refresh() {
+    this.service.listRecords(this.patientId).subscribe(
+      records => {
+        this.source.load(records)
+      },
+      err => console.error('listRecords subcribe ERROR', err)
     );
   }
 
@@ -103,14 +131,14 @@ export class SmartTableComponent {
   }
 
   onDeleteConfirm(event) {
-    var deletePatientObs = this.service.deletePatient(event.data.id)
+    var deleteRecordObs = this.service.deleteRecord(event.data.patientId, event.data.id)
     
-    deletePatientObs.subscribe(
+    deleteRecordObs.subscribe(
       response => {
         event.confirm.resolve()
       },
       error => {
-        console.error('deletePatient:', error)
+        console.error('deleteRecord:', error)
         event.confirm.reject()
       }
     )
@@ -118,14 +146,14 @@ export class SmartTableComponent {
 
   onSaveConfirm(event) {
     this.parseDate(event)
-    var editPatientObs = this.service.editPatient(event.data.id, event.newData)
-    editPatientObs.subscribe(
+    var editRecordObs = this.service.editRecord(event.data.patientId, event.data.id, event.newData)
+    editRecordObs.subscribe(
       response => {
-        console.log('editPatient:', response.json())
+        console.log('editRecord:', response.json())
         event.confirm.resolve(event.newData)
       },
       error => {
-        console.error('editPatient:', error)
+        console.error('editRecord:', error)
         event.confirm.reject()
       }
     )
@@ -134,14 +162,14 @@ export class SmartTableComponent {
   onCreateConfirm(event) {
     this.parseDate(event)
 
-    var addPatientObs = this.service.addPatient(event.newData)
-    addPatientObs.subscribe(
+    var addRecordObs = this.service.addRecord(this.patientId, event.newData)
+    addRecordObs.subscribe(
       response => {
-        console.log('addPatient:', response.json())
+        console.log('addRecord:', response.json())
         event.confirm.resolve(event.newData)
       },
       error => {
-        console.error('addPatient:', error._body)
+        console.error('addRecord:', error._body)
         event.confirm.reject()
       },
       () => this.refresh()
@@ -149,11 +177,6 @@ export class SmartTableComponent {
   }
 
   onUserRowSelect(event): void {
-    console.log('onUserRowSelect', event)
-    console.log('event', event.data._id, event.data.id)
-    this.router.navigate([ '/pages/tables/record-table' ], { 
-      queryParams: { patientId: event.data.id } 
-    });
-    
+    console.log('click', event);
   }
 }

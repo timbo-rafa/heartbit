@@ -19,6 +19,13 @@ export class HeartbitApiService {
   private patientUrl(id) {
     return patientsUrl + '/' + id
   }
+  private recordsUrl(patientId) {
+    return this.patientUrl(patientId) + '/records'
+  }
+  private recordUrl(patientId, recordId) {
+    return this.recordsUrl(patientId) + '/' + recordId
+  }
+
   public listPatientsMock() {
     this.listPatients().subscribe(
       res => console.log('listPatients:', res),
@@ -26,6 +33,8 @@ export class HeartbitApiService {
     )
     return this.data;
   }
+
+  // Patients
   public listPatients() {
     return this.http.get(patientsUrl)
       .map( (patients) => patients.json())
@@ -43,4 +52,20 @@ export class HeartbitApiService {
   public editPatient(id, newData) {
     return this.http.put(this.patientUrl(id), newData)
   }
+
+  //Records
+  public listRecords(patientId) {
+    return this.http.get(this.recordsUrl(patientId))
+      .map( (records) => records.json())
+  }
+  public addRecord(patientId, record) {
+    return this.http.post(this.recordsUrl(patientId), record)
+  }
+  public deleteRecord(patientId, id) {
+    return this.http.delete(this.recordUrl(patientId, id))
+  }
+  public editRecord(patientId, id, newRecord) {
+    return this.http.put(this.recordUrl(patientId, id), newRecord)
+  }
+
 }
