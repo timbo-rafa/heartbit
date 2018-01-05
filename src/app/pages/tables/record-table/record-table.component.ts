@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DatePipe } from '@angular/common';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot, Params }
+from '@angular/router';
 
 import { SmartTableService } from '../../../@core/data/smart-table.service';
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
@@ -35,12 +36,12 @@ export class RecordTableComponent {
       confirmDelete: true,
     },
     columns: {
-      patientId: {
-        title:'Patient',
+      patient: {
+        title:'Patient ID',
         'type': 'string',
       },
       id: {
-        title:'ID',
+        title:'Record ID',
         'type': 'string',
       },
       lab: {
@@ -95,24 +96,26 @@ export class RecordTableComponent {
 
   constructor(private service: HeartbitApiService, private datePipe: DatePipe,
               private activatedRoute: ActivatedRoute) {
-    console.log()
     //this.parseParams(activatedRoute)
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(
-      (params: Params) => {
-        console.log('params', params)
-        this.patientId = params['patientId']
-        console.log('got patientId', this.patientId)
+    this.activatedRoute.queryParams.subscribe(
+      (queryParams: Params) => {
+        //console.log('params', queryParams)
+        this.patientId = queryParams['patientId']
+        //console.log('got patientId', this.patientId)
+        this.refresh()        
       },
-      null, //error handler
-      () => this.refresh()
+      (err) => {
+        console.error('params:', err)
+      }
     )
   }
   private refresh() {
     this.service.listRecords(this.patientId).subscribe(
       records => {
+        console.log('listRecords:', records)
         this.source.load(records)
       },
       err => console.error('listRecords subcribe ERROR', err)
