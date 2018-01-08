@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DatePipe } from '@angular/common';
+import { CanActivate } from '@angular/router'
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, Params }
 from '@angular/router';
 
@@ -16,7 +17,7 @@ import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
     }
   `],
 })
-export class RecordTableComponent {
+export class RecordTableComponent implements CanActivate {
 
   settings = {
     add: {
@@ -188,5 +189,10 @@ export class RecordTableComponent {
 
   onUserRowSelect(event): void {
     console.log('click', event);
+  }
+
+
+  canActivate() {
+    return false;
   }
 }

@@ -16,7 +16,7 @@ const routes: Routes = [{
   {
     path: 'record-table/:patientId',
     component: RecordTableComponent,
-    //canActivate: [() => false],
+    canActivate: [RecordTableComponent],
   },
   
    {
