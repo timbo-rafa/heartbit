@@ -14,7 +14,7 @@ const routes: Routes = [{
   },
   
   {
-    path: 'record-table',
+    path: 'record-table/:patientId',
     component: RecordTableComponent,
   },
 

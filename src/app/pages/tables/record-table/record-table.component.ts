@@ -100,12 +100,11 @@ export class RecordTableComponent {
   }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(
-      (queryParams: Params) => {
-        //console.log('params', queryParams)
-        this.patientId = queryParams['patientId']
-        //console.log('got patientId', this.patientId)
-        this.refresh()        
+    this.activatedRoute.params.subscribe(
+      (params: Params) => {
+        this.patientId = params['patientId']
+        console.log('params', params, this.patientId)
+        this.refresh()
       },
       (err) => {
         console.error('params:', err)
@@ -133,8 +132,16 @@ export class RecordTableComponent {
     event.newData['createdAt'] = createdAtDate
   }
 
+  private parseId(event) {
+    var inputPatientId : String = event.data.patient.toString()
+    if (inputPatientId.localeCompare("") == 0) {// equals "" 
+      event.data.patient = this.patientId
+    }
+  }
+
   onDeleteConfirm(event) {
-    var deleteRecordObs = this.service.deleteRecord(event.data.patientId, event.data.id)
+    
+    var deleteRecordObs = this.service.deleteRecord(event.data.patient, event.data.id)
     
     deleteRecordObs.subscribe(
       response => {
@@ -149,7 +156,7 @@ export class RecordTableComponent {
 
   onSaveConfirm(event) {
     this.parseDate(event)
-    var editRecordObs = this.service.editRecord(event.data.patientId, event.data.id, event.newData)
+    var editRecordObs = this.service.editRecord(event.data.patient, event.data.id, event.newData)
     editRecordObs.subscribe(
       response => {
         console.log('editRecord:', response.json())

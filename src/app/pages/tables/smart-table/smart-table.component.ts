@@ -53,7 +53,7 @@ export class SmartTableComponent {
       },
       insurance: {
         title: 'Insurance Company',
-        type: 'string'
+        type: 'string',
       },
       createdAt: {
         title: 'Created at',
@@ -151,9 +151,8 @@ export class SmartTableComponent {
   onUserRowSelect(event): void {
     console.log('onUserRowSelect', event)
     console.log('event', event.data._id, event.data.id)
-    this.router.navigate([ '/pages/tables/record-table' ], { 
-      queryParams: { patientId: event.data.id } 
-    });
+    this.service.patientId = event.data.id
+    this.router.navigate([ '/pages/tables/record-table/' + event.data.id ]);
     
   }
 }
