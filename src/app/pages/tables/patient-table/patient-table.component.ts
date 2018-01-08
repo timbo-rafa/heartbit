@@ -8,14 +8,14 @@ import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
 
 @Component({
   selector: 'ngx-smart-table',
-  templateUrl: './smart-table.component.html',
+  templateUrl: './patient-table.component.html',
   styles: [`
     nb-card {
       transform: translate3d(0, 0, 0);
     }
   `],
 })
-export class SmartTableComponent {
+export class PatientTableComponent {
 
   settings = {
     add: {

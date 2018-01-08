@@ -108,14 +108,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  */
   {
-    title: 'Charts',
+    title: 'Records',
     icon: 'nb-bar-chart',
     children: [
       {
-        title: 'Echarts',
+        title: 'Patient Levels',
         link: '/pages/charts/echarts',
       },
+      /*
       {
         title: 'Charts.js',
         link: '/pages/charts/chartjs',
@@ -124,8 +126,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'D3',
         link: '/pages/charts/d3',
       },
+      */
     ],
   },
+  /*
   {
     title: 'Editors',
     icon: 'nb-title',
@@ -147,7 +151,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'List Patients',
-        link: '/pages/tables/smart-table',
+        link: '/pages/tables/patient-table',
+      },
+      {
+        title: 'List Patient\'s Record',
+        link: '/pages/tables/record-table',
+        
+
       },
     ],
   },
