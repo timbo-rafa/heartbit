@@ -3,7 +3,10 @@
      [class.right]="position === 'inverse'">
   <div class="logo-containter">
     <a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>
-    <div class="logo" (click)="goToHome()">Heartbit<span></span></div>
+    <div class="logo" (click)="goToHome()">
+      <img src="../../../../favicon.png" alt="Heartbit" style="max-height:60px; object-fit:contain">
+      Heartbit
+      <span></span></div>
   </div>
   <ngx-theme-switcher></ngx-theme-switcher>
 </div>
