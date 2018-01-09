@@ -97,7 +97,6 @@ export class RecordTableComponent implements CanActivate {
 
   constructor(private service: HeartbitApiService, private datePipe: DatePipe,
               private activatedRoute: ActivatedRoute) {
-    //this.parseParams(activatedRoute)
   }
 
   ngOnInit() {
@@ -193,6 +192,6 @@ export class RecordTableComponent implements CanActivate {
 
 
   canActivate() {
-    return false;
+    return true;
   }
 }

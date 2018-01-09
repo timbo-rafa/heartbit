@@ -23,7 +23,8 @@ const routes: Routes = [{
     path: '',
     redirectTo: 'patient-table',
     pathMatch: 'full',
-  }],
+  },
+],
 }];
 
 @NgModule({

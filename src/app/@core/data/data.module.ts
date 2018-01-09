@@ -6,7 +6,7 @@ import { ElectricityService } from './electricity.service';
 import { StateService } from './state.service';
 import { SmartTableService } from './smart-table.service';
 import { PlayerService } from './player.service';
-import { HeartbitApiService } from './heartbit-api.service'
+import { HeartbitApiService } from './heartbit-api.service';
 
 const SERVICES = [
   UserService,

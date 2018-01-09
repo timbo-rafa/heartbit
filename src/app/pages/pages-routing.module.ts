@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+//import { ComponentsComponent } from './components/components.component'
+//import { ComponentsModule } from './components/components.module'
 
 const routes: Routes = [{
   path: '',
@@ -15,6 +17,7 @@ const routes: Routes = [{
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {
     path: 'components',
+    //component: ComponentsComponent,
     loadChildren: './components/components.module#ComponentsModule',
   }, {
     path: 'maps',
@@ -35,15 +38,14 @@ const routes: Routes = [{
     path: '',
     redirectTo: 'tables',
     pathMatch: 'full',
-  }, {
-    // heartbit
-    path: 'patients',
-    loadChildren: './patients/patients.module#PatientsModule',
   }],
 }];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes),
+    //ComponentsModule
+  ],
   exports: [RouterModule],
 })
 export class PagesRoutingModule {

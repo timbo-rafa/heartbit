@@ -5,15 +5,13 @@ import { Router } from '@angular/router';
 
 import { SmartTableService } from '../../../@core/data/smart-table.service';
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
+import { Notification, NotificationsService } from '../../components/notifications/notifications.service'
+
 
 @Component({
   selector: 'ngx-smart-table',
   templateUrl: './patient-table.component.html',
-  styles: [`
-    nb-card {
-      transform: translate3d(0, 0, 0);
-    }
-  `],
+  styleUrls: ['./patient-table.component.scss']
 })
 export class PatientTableComponent {
 
@@ -76,7 +74,9 @@ export class PatientTableComponent {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: HeartbitApiService, private datePipe: DatePipe, private router: Router) {
+  constructor(private service: HeartbitApiService, private datePipe: DatePipe, private router: Router
+    , private notification: NotificationsService
+  ) {
     const data = this.service.listPatientsMock()
     this.refresh()
   }
@@ -150,9 +150,11 @@ export class PatientTableComponent {
 
   onUserRowSelect(event): void {
     console.log('onUserRowSelect', event)
-    console.log('event', event.data._id, event.data.id)
+    //console.log('event', event.data._id, event.data.id)
     this.service.patientId = event.data.id
-    this.router.navigate([ '/pages/tables/record-table/' + event.data.id ]);
+    //this.router.navigate([ '/pages/tables/record-table/' + event.data.id ]);
     
+    var note : any = new Notification('info', 'TEST', 'test content')
+    this.notification.notify( note )
   }
 }

@@ -4,12 +4,11 @@ import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
-import { PatientsModule } from './patients/patients.module';
 
 import { DatePipe } from '@angular/common'
 
 const PAGES_COMPONENTS = [
-  PagesComponent,
+  PagesComponent
 ];
 
 @NgModule({
@@ -17,7 +16,6 @@ const PAGES_COMPONENTS = [
     PagesRoutingModule,
     ThemeModule,
     DashboardModule,
-    PatientsModule,
   ],
   declarations: [
     ...PAGES_COMPONENTS,

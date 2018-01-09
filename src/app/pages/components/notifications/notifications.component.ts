@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+import { Notification, NotificationsService } from './notifications.service'
 
 import 'style-loader!angular2-toaster/toaster.css';
 
@@ -9,7 +10,17 @@ import 'style-loader!angular2-toaster/toaster.css';
   templateUrl: './notifications.component.html',
 })
 export class NotificationsComponent {
-  constructor(private toasterService: ToasterService) {}
+  constructor(private toasterService: ToasterService, private notifications: NotificationsService) {
+    //this.listenToNotification()
+    console.log('NotificationsComponent loaded')
+    this.notifications.notifyEvent.subscribe(
+      (notification: Notification) => {
+        console.log('listenToNotification', notification)
+        this.showToast(notification.type, notification.title, notification.content)
+      }
+
+    )
+  }
 
   config: ToasterConfig;
 
@@ -74,5 +85,9 @@ export class NotificationsComponent {
 
   clearToasts() {
     this.toasterService.clear();
+  }
+
+  listenToNotification() {
+    
   }
 }

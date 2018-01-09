@@ -6,6 +6,8 @@ import { ToasterModule } from 'angular2-toaster';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ComponentsRoutingModule, routedComponents } from './components-routing.module';
 
+import { NotificationsService } from './notifications/notifications.service'
+
 @NgModule({
   imports: [
     ThemeModule,
@@ -16,5 +18,6 @@ import { ComponentsRoutingModule, routedComponents } from './components-routing.
   declarations: [
     ...routedComponents,
   ],
+  providers: [NotificationsService],
 })
 export class ComponentsModule { }
