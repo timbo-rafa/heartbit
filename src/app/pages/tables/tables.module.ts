@@ -5,6 +5,8 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { TablesRoutingModule, routedComponents } from './tables-routing.module';
 import { SmartTableService } from '../../@core/data/smart-table.service';
 
+import { RecordTableComponent } from './record-table/record-table.component'
+
 @NgModule({
   imports: [
     ThemeModule,
@@ -16,6 +18,7 @@ import { SmartTableService } from '../../@core/data/smart-table.service';
   ],
   providers: [
     SmartTableService,
+    RecordTableComponent
   ],
 })
 export class TablesModule { }
