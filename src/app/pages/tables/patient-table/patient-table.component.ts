@@ -36,6 +36,7 @@ export class PatientTableComponent {
       id: {
         title:'ID',
         'type': 'string',
+        //filter: false,
       },
       name: {
         title:'Name',
