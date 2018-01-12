@@ -54,23 +54,23 @@ export class RecordTableComponent implements CanActivate {
         type: 'string'
       },
       glucose: {
-        title: 'Glucose',
+        title: 'Glucose (mg/dL)',
         type:'number',
       },
       redBloodCells: {
-        title: 'Red Blood Cells',
+        title: 'Red Blood Cells (mi/mm³)',
         type:'number',
       },
       whiteBloodCells: {
-        title: 'White Blood Cells',
+        title: 'White Blood Cells (mg/dL)',
         type:'number',
       },
       platelet: {
-        title: 'Platelet',
+        title: 'Platelet (/cm³)',
         type:'number',
       },
       iron: {
-        title: 'Iron',
+        title: 'Iron (ug/dL)',
         type:'number',
       },
       createdAt: {
