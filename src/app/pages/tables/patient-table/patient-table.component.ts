@@ -152,9 +152,17 @@ export class PatientTableComponent {
     console.log('onUserRowSelect', event)
     //console.log('event', event.data._id, event.data.id)
     this.service.patientId = event.data.id
-    this.router.navigate([ '/pages/tables/record-table/' + event.data.id ]);
+    this.service.setPatientId(event.data.id)
     
     //var note : any = new Notification('info', 'TEST', 'test content')
     //this.notification.notify( note )
+  }
+
+  showRecordsTable(event): void {
+    this.router.navigate([ '/pages/tables/record-table/' + this.service.patientId ]);
+  }
+
+  private isPatientSelected(): boolean {
+    return this.service.isPatientSelected()
   }
 }

@@ -12,4 +12,13 @@
     >
     </ng2-smart-table>
   </nb-card-body>
+  <nb-card-footer [hidden]="!isPatientSelected()">
+      <button class="btn btn-primary" (click)="showRecordsChart()">Show Records Charts</button>
+      <button class="btn btn-primary" (click)="showRecordsTable()">Show Records Table</button>
+
+      <!--
+      <button class="btn btn-success" (click)="openRandomToast()">Random toast</button>
+      <button class="btn btn-danger" (click)="clearToasts()">Clear all toasts</button>
+      -->
+    </nb-card-footer>
 </nb-card>

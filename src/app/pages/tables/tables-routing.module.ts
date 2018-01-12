@@ -5,6 +5,7 @@ import { TablesComponent } from './tables.component';
 import { PatientTableComponent } from './patient-table/patient-table.component';
 import { RecordTableComponent } from './record-table/record-table.component';
 import { DesirableLevelsComponent } from './desirable-levels/desirable-levels.component'
+import { HeartbitApiService } from '../../@core/data/heartbit-api.service'
 
 const routes: Routes = [{
   path: '',
@@ -17,7 +18,7 @@ const routes: Routes = [{
   {
     path: 'record-table/:patientId',
     component: RecordTableComponent,
-    canActivate: [RecordTableComponent],
+    canActivate: [ HeartbitApiService ],
   }, {
     path: '',
     redirectTo: 'patient-table',

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Http } from '@angular/http';
+import { CanActivate } from '@angular/router';
 
 const apiurl = environment.heartbitApiUrl
 const patientsUrl = apiurl + '/patients'
 
 @Injectable()
-export class HeartbitApiService {
+export class HeartbitApiService implements CanActivate {
 
   data = [
     //{ name: 'john', age: 30, doctor: 'Smith', insurance: 'none', createdAt: Date.now().toString() },
@@ -44,6 +45,7 @@ export class HeartbitApiService {
   }
 
   constructor( private http: Http) {
+    this.patientId = null;
    }
 
   private patientUrl(id) {
@@ -98,4 +100,22 @@ export class HeartbitApiService {
     return this.http.put(this.recordUrl(patientId, id), newRecord)
   }
 
+  public isPatientSelected(): boolean {
+    return this.patientId != null
+  }
+
+  public setPatientId(id) {
+    this.patientId = id
+  }
+
+  /*
+  public clearPatientId() {
+    this.patientId = null
+  }
+  */
+
+  public canActivate() {
+    console.log('heartbit canActivate', this.isPatientSelected())
+    return this.isPatientSelected()
+  }
 }

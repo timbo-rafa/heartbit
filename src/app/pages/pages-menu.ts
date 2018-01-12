@@ -110,12 +110,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   */
   {
-    title: 'Records',
+    title: 'Charts',
     icon: 'nb-bar-chart',
     children: [
       {
-        title: 'Patient Levels',
-        link: '/pages/charts/echarts',
+        title: 'Patient\'s Records',
+        link: '/pages/charts/echarts/:patientId',
       },
       /*
       {
@@ -146,7 +146,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   */
   {
-    title: 'Patients',
+    title: 'Tables',
     icon: 'nb-tables',
     children: [
       {
