@@ -21,6 +21,7 @@ export class DesirableLevelsComponent {
 
   settings = {
     actions: false,
+    hideSubHeader: true,
     columns: {
       desirableLevel: {
         title:'Desirable Level',
