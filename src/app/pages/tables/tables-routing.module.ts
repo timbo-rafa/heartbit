@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TablesComponent } from './tables.component';
 import { PatientTableComponent } from './patient-table/patient-table.component';
 import { RecordTableComponent } from './record-table/record-table.component';
+import { DesirableLevelsComponent } from './desirable-levels/desirable-levels.component'
 
 const routes: Routes = [{
   path: '',
@@ -17,13 +18,14 @@ const routes: Routes = [{
     path: 'record-table/:patientId',
     component: RecordTableComponent,
     canActivate: [RecordTableComponent],
-  },
-  
-   {
+  }, {
     path: '',
     redirectTo: 'patient-table',
     pathMatch: 'full',
-  },
+  }, {
+    path: 'desirable-levels',
+    component: DesirableLevelsComponent,
+  }
 ],
 }];
 
@@ -37,4 +39,5 @@ export const routedComponents = [
   TablesComponent,
   PatientTableComponent,
   RecordTableComponent,
+  DesirableLevelsComponent,
 ];

@@ -159,6 +159,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         
 
       },
+      {
+        title: 'Desirable Levels',
+        link: '/pages/tables/desirable-levels',
+      },
     ],
   },
   /*
