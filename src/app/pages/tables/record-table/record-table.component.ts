@@ -84,7 +84,7 @@ export class RecordTableComponent implements CanActivate {
             formatted = this.datePipe.transform(raw, 'dd MMM yyyy HH:mm:ss')
           }
           catch (InvalidPipeArgument) {
-            formatted = '?' + date.toString()
+            formatted = '?' + date.toString() // not showing on edit?
           }
           return formatted
         }
