@@ -159,8 +159,12 @@ export class PatientTableComponent {
     //this.notification.notify( note )
   }
 
-  showRecordsTable(event): void {
+  showTable() {
     this.router.navigate([ '/pages/tables/record-table/' + this.service.patientId ]);
+  }
+
+  showChart() {
+    this.router.navigate([ '/pages/charts/echart/' + this.service.patientId ])
   }
 
   private isPatientSelected(): boolean {

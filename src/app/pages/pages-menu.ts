@@ -114,8 +114,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-bar-chart',
     children: [
       {
-        title: 'Patient\'s Records',
-        link: '/pages/charts/echarts/:patientId',
+        title: 'Patient\'s Record',
+        link: '/pages/charts/echart/',
       },
       /*
       {

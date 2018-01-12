@@ -5,13 +5,15 @@ import { ChartsComponent } from './charts.component';
 import { EchartsComponent } from './echarts/echarts.component';
 import { D3Component } from './d3/d3.component';
 import { ChartjsComponent } from './chartjs/chartjs.component';
+import { HeartbitApiService } from '../../@core/data/heartbit-api.service'
 
 const routes: Routes = [{
   path: '',
   component: ChartsComponent,
   children: [{
-    path: 'echarts',
+    path: 'echart/:patientId',
     component: EchartsComponent,
+    canActivate: [ HeartbitApiService ],
   }, {
     path: 'd3',
     component: D3Component,

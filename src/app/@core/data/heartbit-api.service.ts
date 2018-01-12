@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Http } from '@angular/http';
-import { CanActivate } from '@angular/router';
+import { CanActivate, ActivatedRoute, Params } from '@angular/router';
+import { Observable  } from 'rxjs/Observable';
+
+import { of } from 'rxjs/observable/of';
 
 const apiurl = environment.heartbitApiUrl
 const patientsUrl = apiurl + '/patients'
@@ -44,7 +47,7 @@ export class HeartbitApiService implements CanActivate {
     }
   }
 
-  constructor( private http: Http) {
+  constructor( private http: Http, private route: ActivatedRoute) {
     this.patientId = null;
    }
 
@@ -114,8 +117,24 @@ export class HeartbitApiService implements CanActivate {
   }
   */
 
-  public canActivate() {
-    console.log('heartbit canActivate', this.isPatientSelected())
-    return this.isPatientSelected()
+  public canActivate(): boolean {
+    /*
+    var obs = new Observable<boolean>();
+    this.route.params.first(
+      (params : Params) => {
+        var pId = params['patientId']
+        if (pId) {
+          this.patientId = pId;
+        }
+        console.log('heartbit canActivate', this.patientId, this.isPatientSelected())
+        obs.of(this.patientId)
+        obs.complete()
+        return this.isPatientSelected();
+      }
+    )
+    */
+
+    return true;
+    //return this.isPatientSelected();
   }
 }
