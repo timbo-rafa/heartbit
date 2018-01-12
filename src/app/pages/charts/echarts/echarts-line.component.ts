@@ -167,9 +167,7 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
   }
 
   bloodComponentColor(bloodComponent, desirableColor, dangerColor='#ff4c6a') {
-    var emptyIfWithinDesirableLevels: any[] = this.records.filter( (record) => {
-      return this.outsideDesirableLevels(this.heartbit.levels[bloodComponent] ,record[bloodComponent])  
-    })
+    var emptyIfWithinDesirableLevels: any[] = this.filterDesirableLevelsFromLastSample(bloodComponent)
     if (emptyIfWithinDesirableLevels.length > 0) return dangerColor
     return desirableColor
   }
@@ -183,6 +181,30 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
     return colors.success
   }
   */
+
+  filterDesirableLevelsFromLastSample (bloodComponent): any[] {
+    var sortedByDateRecords = this.records.sort(this.compareRecordsByDate)
+    var arrayWithLastRecord = [ sortedByDateRecords[sortedByDateRecords.length - 1] ]
+    console.log('Last Record dated ', arrayWithLastRecord[0].createdAt.toString())
+    return arrayWithLastRecord.filter( (record) => {
+      return this.outsideDesirableLevels(this.heartbit.levels[bloodComponent] ,record[bloodComponent])  
+    })
+  }
+
+  compareRecordsByDate(record1, record2) {
+    var date1 = new Date(record1.createdAt)
+    var date2 = new Date(record2.createdAt)
+
+    if (date1 == date2) return 0
+    if (date1 >  date2) return 1
+
+  }
+
+  filterDesirableLevelsFromAll (bloodComponent): any[] {
+    return this.records.filter( (record) => {
+      return this.outsideDesirableLevels(this.heartbit.levels[bloodComponent] ,record[bloodComponent])  
+    })
+  }
 
   outsideDesirableLevels(bloodComponent, value): boolean {
     return !this.withinDesirableLevels(bloodComponent, value)
