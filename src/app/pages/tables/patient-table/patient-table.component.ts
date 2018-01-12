@@ -167,7 +167,7 @@ export class PatientTableComponent {
     this.router.navigate([ '/pages/charts/echart/' + this.service.patientId ])
   }
 
-  private isPatientSelected(): boolean {
+  public isPatientSelected(): boolean {
     return this.service.isPatientSelected()
   }
 }
