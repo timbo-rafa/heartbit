@@ -1,0 +1,10 @@
+<p>
+  google-charts works!
+</p>
+
+<google-chart id="chart"
+  [data]="comboChartData"
+  (chartReady)='ready($event)'
+  (chartError)='error($event)'
+  >
+</google-chart>

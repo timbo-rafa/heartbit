@@ -17,9 +17,11 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
   themeSubscription: any;
   patientId: string;
   records: any[]
+  compareRecordsByDate: (record1: any,record2: any) => number;
 
   constructor(private theme: NbThemeService, private heartbit : HeartbitApiService,
               private router: ActivatedRoute) {
+    this.compareRecordsByDate = heartbit.compareRecordsByDate;
   }
 
   ngOnInit() {
@@ -55,7 +57,7 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
 
       this.options = {
         backgroundColor: echarts.bg,
-        color: this.colors(colors),
+        color: this.heartbit.colors(colors),
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c}',
@@ -75,7 +77,7 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
         xAxis: [
           {
             type: 'category',
-            data: this.extractDate(),
+            data: this.heartbit.extractRecordDates(),
             //data: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
             axisTick: {
               alignWithLabel: true,
@@ -122,30 +124,30 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
           {
             name: 'Glucose (mg/dL)',
             type: 'line',
-            data: this.extract('glucose'),
+            data: this.heartbit.extract('glucose'),
             //data: [1, 3, 9, 27, 81, 247, 741, 2223, 6669],
           },
           {
             name: 'Red Blood Cells (mi/mm³)',
             type: 'line',
-            data: this.extract('redBloodCells'),
+            data: this.heartbit.extract('redBloodCells'),
             //data: [1, 2, 4, 8, 16, 32, 64, 128, 256],
           },
           {
             name: 'White Blood Cells (mi/cm³)',
             type: 'line',
-            data: this.extract('whiteBloodCells'),
+            data: this.heartbit.extract('whiteBloodCells'),
             //data: [1 / 2, 1 / 4, 1 / 8, 1 / 16, 1 / 32, 1 / 64, 1 / 128, 1 / 256, 1 / 512],
           },
           {
             name: 'Platelet (/cm³)',
             type: 'line',
-            data: this.extract('platelet'),
+            data: this.heartbit.extract('platelet'),
           },
           {
             name: 'Iron (ug/dL)',
             type: 'line',
-            data: this.extract('iron'),
+            data: this.heartbit.extract('iron'),
           },
         ],
       };
@@ -154,6 +156,7 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
     );
   }
 
+  /*
   colors(colors) {
     if (this.records.length == 0)
       return [colors.success, colors.primary, colors.info, '#ffffff', '#000000']
@@ -171,16 +174,6 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
     if (emptyIfWithinDesirableLevels.length > 0) return dangerColor
     return desirableColor
   }
-
-  /* example of above function
-  glucoseColor(colors) {
-    var emptyIfWithinDesirableLevels: any[] = this.records.filter( (record) => {
-      return this.outsideDesirableLevels(this.heartbit.levels.glucose ,record.glucose)  
-    })
-    if (emptyIfWithinDesirableLevels.length > 0) return colors.danger
-    return colors.success
-  }
-  */
 
   filterDesirableLevelsFromLastSample (bloodComponent): any[] {
     var sortedByDateRecords = this.records.sort(this.compareRecordsByDate)
@@ -228,9 +221,8 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
 
   extractDate() {
     return this.records.map( record => new Date(record['createdAt']).toDateString())
-
   }
-
+  */
   ngOnDestroy(): void {
     this.themeSubscription.unsubscribe();
   }
