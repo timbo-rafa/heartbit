@@ -27,7 +27,8 @@
     "docs:serve": "compodoc -p src/tsconfig.app.json -d docs -s",
     "prepush": "npm run lint:ci",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
-    "postinstall": "ng build --aot -prod"
+    "postinstall": "ng build --aot -prod",
+    "gh-pages": "ng build --prod --base-href /heartbit-web/ && gh-pages -d dist"
   },
   "dependencies": {
     "@agm/core": "1.0.0-beta.0",
