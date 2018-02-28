@@ -20,11 +20,20 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
   records: any;
   patientId: string;
 
-  constructor(private theme: NbThemeService, private heartbit: HeartbitApiService) {
+  constructor(private theme: NbThemeService, private router: ActivatedRoute, private heartbit: HeartbitApiService) {
   }
 
   ngAfterViewInit() {
-    this.listRecords()
+    this.router.params.subscribe(
+      (params: Params) => {
+        var paramPatientId = params['patientId']
+        if (paramPatientId) {
+          this.patientId = paramPatientId
+          this.heartbit.patientId = this.patientId
+        }
+        this.listRecords()
+      },
+    )
   }
 
   listRecords() {
@@ -45,7 +54,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
 
       this.options = {
         backgroundColor: echarts.bg,
-        color: [colors.primaryLight],
+        //color: this.heartbit.barColors(this.bloodComponent, colors),
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -104,7 +113,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
             name: this.bloodComponent,
             type: 'bar',
             barWidth: '60%',
-            data: this.heartbit.extract(this.bloodComponent),
+            data: this.heartbit.extractDataForBarEChart(this.bloodComponent, colors),
           },
         ],
       };
