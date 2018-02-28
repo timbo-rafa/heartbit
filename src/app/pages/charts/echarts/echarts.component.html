@@ -28,9 +28,37 @@
     
 
     <nb-card>
-      <nb-card-header>Google Charts</nb-card-header>
-      <nb-card-body >
-        <timbo-google-charts></timbo-google-charts>
+      <nb-card-header>Glucose</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-bar [bloodComponent]="'glucose'"></ngx-echarts-bar>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card>
+      <nb-card-header>Red Blood Cells</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-bar [bloodComponent]="'redBloodCells'"></ngx-echarts-bar>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card>
+      <nb-card-header>White Blood Cells</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-bar [bloodComponent]="'whiteBloodCells'"></ngx-echarts-bar>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card>
+      <nb-card-header>Platelet</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-bar [bloodComponent]="'platelet'"></ngx-echarts-bar>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card>
+      <nb-card-header>Iron</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-bar [bloodComponent]="'iron'"></ngx-echarts-bar>
       </nb-card-body>
     </nb-card>
 

@@ -1,5 +1,8 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, Input, SimpleChanges } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
+import { ActivatedRoute, Params } from '@angular/router'
+import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
+
 
 @Component({
   selector: 'ngx-echarts-bar',
@@ -8,13 +11,33 @@ import { NbThemeService } from '@nebular/theme';
   `,
 })
 export class EchartsBarComponent implements AfterViewInit, OnDestroy {
+
+  @Input()
+  bloodComponent: string
+
   options: any = {};
   themeSubscription: any;
+  records: any;
+  patientId: string;
 
-  constructor(private theme: NbThemeService) {
+  constructor(private theme: NbThemeService, private heartbit: HeartbitApiService) {
   }
 
   ngAfterViewInit() {
+    this.listRecords()
+  }
+
+  listRecords() {
+    this.heartbit.listRecords(this.patientId).subscribe(
+      records => {
+        this.records = records
+        this.plotChart()
+      },
+      () => this.plotChart()
+    )
+  }
+
+  plotChart() {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
       const colors: any = config.variables;
@@ -38,7 +61,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
         xAxis: [
           {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            data: this.heartbit.extractRecordDates(),
             axisTick: {
               alignWithLabel: true,
             },
@@ -76,10 +99,10 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
         ],
         series: [
           {
-            name: 'Score',
+            name: this.bloodComponent,
             type: 'bar',
             barWidth: '60%',
-            data: [10, 52, 200, 334, 390, 330, 220],
+            data: this.heartbit.extract(this.bloodComponent),
           },
         ],
       };
