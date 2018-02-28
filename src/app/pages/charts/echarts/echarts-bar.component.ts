@@ -87,7 +87,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
             },
             splitLine: {
               lineStyle: {
-                color: echarts.splitLineColor,
+                color: echarts.axisLineColor,
               },
             },
             axisLabel: {
@@ -95,6 +95,8 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
                 color: echarts.textColor,
               },
             },
+            min: this.heartbit.levels[this.bloodComponent].min,
+            max: this.heartbit.levels[this.bloodComponent].max
           },
         ],
         series: [
