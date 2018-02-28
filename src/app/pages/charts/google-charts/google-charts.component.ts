@@ -11,7 +11,7 @@ import { ActivatedRoute, Params } from '@angular/router'
   templateUrl: './google-charts.component.html',
   styleUrls: ['./google-charts.component.scss']
 })
-export class GoogleChartsComponent implements OnInit{
+export class GoogleChartsComponent implements OnInit {
 
   comboChartData: any
   themeSubscription: any
@@ -49,33 +49,61 @@ export class GoogleChartsComponent implements OnInit{
   plotChart() {
     console.log('google-charts.plotChart', this.records)
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
+      console.log(config)
       const colors: any = config.variables;
       const echarts: any = config.variables.echarts;
 
       this.comboChartData =  {
         chartType: 'ComboChart',
-        dataTable: [
-          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-          ['2004/05',  165,      938,         522,             998,           450,      614.6],
-          ['2005/06',  135,      1120,        599,             1268,          288,      682],
-          ['2006/07',  157,      1167,        587,             807,           397,      623],
-          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
-       ],
+        dataTable: this.generateDataTable('glucose'),
         options: {
           title: 'Tasks',
+          colors: [colors.successLight],
           backgroundColor: echarts.bg,
           chartArea: {
             backgroundColor: echarts.bg,
             height: "500px",
           },
           seriesType: 'bars',
-          series: {5: {type: 'line'}},
+          series: {1: {type: 'line'}},
           height: "100%",
-          width: "100%"
+          width: "100%",
+          hAxis: {
+            textStyle:{
+              color: colors.fgText
+            }
+          },
+          tooltip: {
+            textStyle: {
+              color: colors.fgHeading
+            }
+          },
+          legend: {
+            textStyle: {
+              color: colors.fgText
+            }
+          },
+          titleTextStyle: {
+            color: colors.fgHeading
+          }
         },
       };
     })
+  }
+
+  generateDataTable(bloodComponent: string) {
+    var dataTable:any[] = [
+      ['Date', bloodComponent]
+    ]
+    for (let record of this.records) {
+      var row = []
+      var date = new Date(record['createdAt']).toDateString()
+      row.push(date)
+      row.push(record[bloodComponent])
+      //row.push(this.heartbit.levels[bloodComponent].min)
+      dataTable.push(row)
+    }
+    return dataTable
   }
 
   public ready(event: ChartReadyEvent) {
