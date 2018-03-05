@@ -7,7 +7,7 @@ List, add, edit, remove and search for a patient's data
 ![Patients table](https://raw.githubusercontent.com/timbo-rafa/heartbit-web/master/screenshots/patients-table.png)
 
 List, add, edit, remove and search for a patient's records
-![Patient's records](https://raw.githubusercontent.com/timbo-rafa/heartbit-web/master/screenshots/patients-records.png))
+![Patient's records](https://raw.githubusercontent.com/timbo-rafa/heartbit-web/master/screenshots/patients-records.png)
 
 Visualize data on charts
 ![Iron chart](https://raw.githubusercontent.com/timbo-rafa/heartbit-web/master/screenshots/iron-chart.png)
