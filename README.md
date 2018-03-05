@@ -14,10 +14,10 @@ Visualize data on charts
 ![Patient's levels](https://raw.githubusercontent.com/timbo-rafa/heartbit-web/master/screenshots/patient-levels.png)
 
 Responsive to screen size
-![responsive UI](https://raw.githubusercontent.com/timbo-rafa/heartbit-web/master/screenshots/responsive-ui.gif))
+![responsive UI](https://raw.githubusercontent.com/timbo-rafa/heartbit-web/master/screenshots/responsive-ui.gif)
 
-### Demo
+### <a href="https://timbo-rafa.github.io/heartbit-web/">Demo</a>
 
-You can try it <a href="timbo-rafa.github.io/heartbit-web/">here</a>
+You can try it <a href="https://timbo-rafa.github.io/heartbit-web/">here</a>
 
 Based on <a href="https://akveo.github.io/nebular">Nebular</a>
