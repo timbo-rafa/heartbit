@@ -104,20 +104,63 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
                 color: echarts.textColor,
               },
             },
-            min: this.heartbit.levels[this.bloodComponent].min,
-            max: this.heartbit.levels[this.bloodComponent].max
+            min: this.minY(),
+            max: this.maxY()
           },
         ],
-        series: [
-          {
-            name: this.bloodComponent,
-            type: 'bar',
-            barWidth: '60%',
-            data: this.heartbit.extractDataForBarEChart(this.bloodComponent, colors),
-          },
-        ],
+        series: [{
+          name: this.bloodComponent,
+          type: 'bar',
+          barWidth: '60%',
+          data: this.heartbit.extractDataForBarEChart(this.bloodComponent, colors)
+          /*, markLine: { // not working?? <<<<<
+            lineStyle: {
+              normal: {
+                color: "#00F"
+              }
+            },
+            label: {
+              normal: {
+                show: true,
+                position: 'middle',
+                formatter: 'MarkLine Label'
+              }
+            },
+            //symbol: 'none',
+            data: [
+              // 1st line we want to draw
+              // Minimum Desirable threshold line
+              {
+                name: 'Minimum desirable level',
+                yAxis: this.heartbit.levels[this.bloodComponent].min
+
+              },
+              // 2nd line we want to draw
+              // Maximum Desirable threshold line
+              {
+                name: 'Maximum desirable level',
+                yAxis: this.heartbit.levels[this.bloodComponent].max
+              }
+            ]
+          }*/
+        },],
       };
     });
+  }
+
+  minY() {
+    var minDesirable = this.heartbit.levels[this.bloodComponent].min
+    var minLevel = this.heartbit.extractMinLevel(this.bloodComponent)
+
+    return minLevel;
+    //return minLevel < minDesirable ? minLevel : minDesirable;
+  }
+
+  maxY() {
+    var maxDesirable = this.heartbit.levels[this.bloodComponent].max
+    var maxLevel = this.heartbit.extractMaxLevel(this.bloodComponent)
+
+    return maxLevel > maxDesirable ? maxLevel : maxDesirable;
   }
 
   ngOnDestroy(): void {

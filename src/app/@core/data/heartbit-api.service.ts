@@ -232,6 +232,19 @@ export class HeartbitApiService implements CanActivate {
     })
   }
 
+  extractMinLevel(bloodComponent: string) {
+    var bloodComponentRecord = this.records.map( (record) => {
+      return record[bloodComponent]
+    })
+    return Math.min(...bloodComponentRecord)
+  }
+
+  extractMaxLevel(bloodComponent: string) {
+    var bloodComponentRecord = this.records.map( (record) => {
+      return record[bloodComponent]
+    })
+    return Math.max(...bloodComponentRecord)
+  }
 
   public canActivate(): boolean {
     /*
