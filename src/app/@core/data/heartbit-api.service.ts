@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Http } from '@angular/http';
-import { CanActivate, ActivatedRoute, Params } from '@angular/router';
-import { Observable  } from 'rxjs/Observable';
-
-import { of } from 'rxjs/observable/of';
+import { CanActivate, ActivatedRoute} from '@angular/router';
 
 const apiurl = environment.heartbitApiUrl
 const patientsUrl = apiurl + '/patients'
