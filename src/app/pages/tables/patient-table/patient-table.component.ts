@@ -3,10 +3,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { SmartTableService } from '../../../@core/data/smart-table.service';
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
-import { Notification, NotificationsService } from '../../components/notifications/notifications.service'
-
 
 @Component({
   selector: 'ngx-smart-table',
@@ -75,9 +72,7 @@ export class PatientTableComponent {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: HeartbitApiService, private datePipe: DatePipe, private router: Router
-    , private notification: NotificationsService
-  ) {
+  constructor(private service: HeartbitApiService, private datePipe: DatePipe, private router: Router) {
     const data = this.service.listPatientsMock()
     this.refresh()
   }

@@ -5,7 +5,6 @@ import { CanActivate } from '@angular/router'
 import { Router, ActivatedRoute, ActivatedRouteSnapshot, Params }
 from '@angular/router';
 
-import { SmartTableService } from '../../../@core/data/smart-table.service';
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
 
 @Component({
