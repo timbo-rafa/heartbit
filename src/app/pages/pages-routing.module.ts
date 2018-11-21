@@ -19,10 +19,12 @@ const routes: Routes = [{
     path: 'components',
     //component: ComponentsComponent,
     loadChildren: './components/components.module#ComponentsModule',
-  }, {
+  },
+  /*{
     path: 'maps',
     loadChildren: './maps/maps.module#MapsModule',
-  }, {
+  },*/
+  {
     path: 'charts',
     loadChildren: './charts/charts.module#ChartsModule',
   }, {

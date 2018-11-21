@@ -113,8 +113,14 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
           type: 'bar',
           barWidth: '60%',
           data: this.heartbit.extractDataForBarEChart(this.bloodComponent, colors)
-          /*, markLine: { // not working?? <<<<<
-            lineStyle: {
+          ,markPoint : {
+            data : [
+                {type : 'max', name: 'max'},
+                {type : 'min', name: 'min'}
+            ]
+          }
+          , markLine: { // not working?? <<<<<
+            /*lineStyle: { // or itemStyle: ???
               normal: {
                 color: "#00F"
               }
@@ -125,13 +131,19 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
                 position: 'middle',
                 formatter: 'MarkLine Label'
               }
-            },
+            },*/
             //symbol: 'none',
             data: [
               // 1st line we want to draw
               // Minimum Desirable threshold line
               {
+                type: 'average',
+                name: 'avvggg'
+              },
+              {
+                //type: 'average',
                 name: 'Minimum desirable level',
+                //xAxis: 50,
                 yAxis: this.heartbit.levels[this.bloodComponent].min
 
               },
@@ -142,8 +154,8 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
                 yAxis: this.heartbit.levels[this.bloodComponent].max
               }
             ]
-          }*/
-        },],
+          }
+        }],
       };
     });
   }

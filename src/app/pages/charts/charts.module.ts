@@ -26,9 +26,6 @@ import { EchartsAreaStackComponent } from './echarts/echarts-area-stack.componen
 import { EchartsBarAnimationComponent } from './echarts/echarts-bar-animation.component';
 import { EchartsRadarComponent } from './echarts/echarts-radar.component';
 
-import { GoogleChartsComponent } from './google-charts/google-charts.component';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
-
 
 const components = [
   ChartjsBarComponent,
@@ -53,7 +50,7 @@ const components = [
 ];
 
 @NgModule({
-  imports: [ThemeModule, ChartsRoutingModule, AngularEchartsModule, NgxChartsModule, ChartModule, Ng2GoogleChartsModule],
-  declarations: [...routedComponents, ...components, GoogleChartsComponent],
+  imports: [ThemeModule, ChartsRoutingModule, AngularEchartsModule, NgxChartsModule, ChartModule],
+  declarations: [...routedComponents, ...components],
 })
 export class ChartsModule {}
