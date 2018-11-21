@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ChartsComponent } from './charts.component';
 import { EchartsComponent } from './echarts/echarts.component';
-import { D3Component } from './d3/d3.component';
-import { ChartjsComponent } from './chartjs/chartjs.component';
 import { HeartbitApiService } from '../../@core/data/heartbit-api.service'
 
 const routes: Routes = [{
@@ -14,13 +12,15 @@ const routes: Routes = [{
     path: 'echart/:patientId',
     component: EchartsComponent,
     canActivate: [ HeartbitApiService ],
-  }, {
+  }, 
+  /*{
     path: 'd3',
     component: D3Component,
   }, {
     path: 'chartjs',
     component: ChartjsComponent,
-  }],
+  }*/
+  ],
 }];
 
 @NgModule({
@@ -31,7 +31,5 @@ export class ChartsRoutingModule { }
 
 export const routedComponents = [
   ChartsComponent,
-  EchartsComponent,
-  D3Component,
-  ChartjsComponent,
+  EchartsComponent
 ];
