@@ -2,20 +2,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 //import { ComponentsComponent } from './components/components.component'
 //import { ComponentsModule } from './components/components.module'
 
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
-  children: [{
+  children: [
+    /*{
     path: 'dashboard',
     component: DashboardComponent,
-  }, {
+  },
+  {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
-  }, {
+  },*/ {
     path: 'components',
     //component: ComponentsComponent,
     loadChildren: './components/components.module#ComponentsModule',
