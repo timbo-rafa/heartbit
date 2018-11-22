@@ -2,7 +2,8 @@ import { AfterViewInit, Component, OnDestroy, OnInit, Input, SimpleChanges } fro
 import { NbThemeService } from '@nebular/theme';
 import { ActivatedRoute, Params } from '@angular/router'
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
-
+import { Subject } from "rxjs/Subject";
+import 'rxjs/add/operator/takeUntil';
 
 @Component({
   selector: 'ngx-echarts-bar',
@@ -20,11 +21,15 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
   records: any;
   patientId: string;
 
+  private ngUnsubscribe: Subject<any> = new Subject();
+
   constructor(private theme: NbThemeService, private router: ActivatedRoute, private heartbit: HeartbitApiService) {
   }
 
   ngAfterViewInit() {
-    this.router.params.subscribe(
+    this.router.params
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(
       (params: Params) => {
         var paramPatientId = params['patientId']
         if (paramPatientId) {
@@ -37,7 +42,9 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
   }
 
   listRecords() {
-    this.heartbit.listRecords(this.patientId).subscribe(
+    this.heartbit.listRecords(this.patientId)
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(
       records => {
         this.records = records
         this.plotChart()
@@ -47,7 +54,9 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
   }
 
   plotChart() {
-    this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
+    this.theme.getJsTheme()
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(config => {
 
       const colors: any = config.variables;
       const echarts: any = config.variables.echarts;
@@ -176,6 +185,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.themeSubscription.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
