@@ -9,6 +9,10 @@ const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
+  {
+    path:'about',
+    loadChildren: './about/about.module#AboutModule'
+  },
     /*{
     path: 'dashboard',
     component: DashboardComponent,
@@ -39,7 +43,7 @@ const routes: Routes = [{
     loadChildren: './tables/tables.module#TablesModule',
   }, {
     path: '',
-    redirectTo: 'tables',
+    redirectTo: 'about',
     pathMatch: 'full',
   }],
 }];

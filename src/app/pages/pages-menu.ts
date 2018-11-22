@@ -31,6 +31,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: 'About',
+    'icon': 'nb-paper-plane',
+    children: [{
+      title: 'This Project',
+      link: '/pages/about/this-project'
+    }]
+
+  }
   /*
   {
     title: 'Auth',
