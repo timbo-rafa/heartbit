@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-import { DatePipe } from '@angular/common';
-import { CanActivate } from '@angular/router'
-import { Router, ActivatedRoute, ActivatedRouteSnapshot, Params }
-from '@angular/router';
 
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
 
@@ -52,8 +48,7 @@ export class DesirableLevelsComponent {
   source: LocalDataSource = new LocalDataSource();
   patientId: string;
 
-  constructor(private service: HeartbitApiService, private datePipe: DatePipe,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private service: HeartbitApiService) {
     
     
     const data = [
