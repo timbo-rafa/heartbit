@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
+
+import { Subject } from "rxjs/Subject";
+import 'rxjs/add/operator/takeUntil';
 
 @Component({
   selector: 'ngx-smart-table',
@@ -11,6 +14,8 @@ import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
   styleUrls: ['./patient-table.component.scss']
 })
 export class PatientTableComponent {
+
+  private ngUnsubscribe: Subject<any> = new Subject();
 
   settings = {
     add: {
@@ -78,7 +83,9 @@ export class PatientTableComponent {
   }
 
   private refresh() {
-    this.service.listPatients().subscribe(
+    this.service.listPatients()
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(
       patients => {
         this.source.load(patients)
         
@@ -101,7 +108,9 @@ export class PatientTableComponent {
   onDeleteConfirm(event) {
     var deletePatientObs = this.service.deletePatient(event.data.id)
     
-    deletePatientObs.subscribe(
+    deletePatientObs
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(
       response => {
         event.confirm.resolve()
       },
@@ -115,7 +124,9 @@ export class PatientTableComponent {
   onSaveConfirm(event) {
     this.parseDate(event)
     var editPatientObs = this.service.editPatient(event.data.id, event.newData)
-    editPatientObs.subscribe(
+    editPatientObs
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(
       response => {
         console.log('editPatient:', response.json())
         event.confirm.resolve(event.newData)
@@ -131,7 +142,9 @@ export class PatientTableComponent {
     this.parseDate(event)
 
     var addPatientObs = this.service.addPatient(event.newData)
-    addPatientObs.subscribe(
+    addPatientObs
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(
       response => {
         console.log('addPatient:', response.json())
         event.confirm.resolve(event.newData)
@@ -164,5 +177,10 @@ export class PatientTableComponent {
 
   public isPatientSelected(): boolean {
     return this.service.isPatientSelected()
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
