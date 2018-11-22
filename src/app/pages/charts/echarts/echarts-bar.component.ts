@@ -169,17 +169,17 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  minY() {
-    var minDesirable = this.heartbit.levels[this.bloodComponent].min
-    var minLevel = this.heartbit.extractMinLevel(this.bloodComponent)
+  minY() : Number {
+    var minDesirable : Number = this.heartbit.levels[this.bloodComponent].min
+    var minLevel : Number = this.heartbit.extractMinLevel(this.bloodComponent)
 
-    return minLevel;
-    //return minLevel < minDesirable ? minLevel : minDesirable;
+    //return minLevel;
+    return minLevel < minDesirable ? minLevel : minDesirable;
   }
 
-  maxY() {
-    var maxDesirable = this.heartbit.levels[this.bloodComponent].max
-    var maxLevel = this.heartbit.extractMaxLevel(this.bloodComponent)
+  maxY() : Number {
+    var maxDesirable : Number = this.heartbit.levels[this.bloodComponent].max
+    var maxLevel : Number = this.heartbit.extractMaxLevel(this.bloodComponent)
 
     return maxLevel > maxDesirable ? maxLevel : maxDesirable;
   }
