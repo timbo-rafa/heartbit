@@ -65,6 +65,7 @@
     "ng2-smart-table": "1.1.0",
     "ng2-tree": "2.0.0-alpha.10",
     "ngx-echarts": "1.2.2",
+    "node-sass": "^4.8.1",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",
     "roboto-fontface": "0.8.0",
@@ -79,7 +80,7 @@
   "devDependencies": {
     "@angular/compiler-cli": "4.4.6",
     "@angular/language-service": "4.4.6",
-    "@compodoc/compodoc": "^1.1.6",
+    "@compodoc/compodoc": "^1.1.10",
     "@types/d3-color": "1.0.4",
     "@types/jasmine": "2.5.54",
     "@types/jasminewd2": "2.0.3",
