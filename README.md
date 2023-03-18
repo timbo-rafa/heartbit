@@ -16,8 +16,8 @@ Visualize data on charts
 Responsive to screen size
 ![responsive UI](https://raw.githubusercontent.com/timbo-rafa/heartbit-web/master/screenshots/responsive-ui.gif)
 
-### <a href="https://timbo-rafa.github.io/heartbit-web/">Demo</a>
+### <a href="https://timbo-rafa.github.io/heartbit/">Demo</a>
 
-You can try it <a href="https://timbo-rafa.github.io/heartbit-web/">here</a>
+You can try it <a href="https://timbo-rafa.github.io/heartbit/">here</a>
 
 Based on <a href="https://akveo.github.io/nebular">Nebular</a>
