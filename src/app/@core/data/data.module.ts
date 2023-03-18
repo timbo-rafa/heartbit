@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { UserService } from './users.service';
 import { StateService } from './state.service';
 import { HeartbitApiService } from './heartbit-api.service';
+import { BloodComponentService } from './blood/blood-component.service';
 
 const SERVICES = [
   UserService,
   StateService,
   HeartbitApiService,
+  BloodComponentService
 ];
 
 @NgModule({

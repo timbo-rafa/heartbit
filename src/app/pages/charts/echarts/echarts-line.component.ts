@@ -3,6 +3,7 @@ import { NbThemeService } from '@nebular/theme';
 import { ActivatedRoute, Params } from '@angular/router'
 
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
+import { BloodComponentService } from '../../../@core/data/blood/blood-component.service';
 
 
 
@@ -17,11 +18,9 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
   themeSubscription: any;
   patientId: string;
   records: any[]
-  compareRecordsByDate: (record1: any,record2: any) => number;
 
   constructor(private theme: NbThemeService, private heartbit : HeartbitApiService,
-              private router: ActivatedRoute) {
-    this.compareRecordsByDate = heartbit.compareRecordsByDate;
+              private router: ActivatedRoute, private bloodComponentService: BloodComponentService) {
   }
 
   ngOnInit() {
@@ -57,7 +56,7 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
 
       this.options = {
         backgroundColor: echarts.bg,
-        color: this.heartbit.colors(colors),
+        color: this.bloodComponentService.colors(this.records,colors),
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c}',
@@ -77,7 +76,7 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
         xAxis: [
           {
             type: 'category',
-            data: this.heartbit.extractRecordDates(),
+            data: this.bloodComponentService.extractRecordDates(this.records),
             //data: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
             axisTick: {
               alignWithLabel: true,
@@ -124,30 +123,30 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
           {
             name: 'Glucose (mg/dL)',
             type: 'line',
-            data: this.heartbit.extract('glucose'),
+            data: this.bloodComponentService.extract(this.records,'glucose'),
             //data: [1, 3, 9, 27, 81, 247, 741, 2223, 6669],
           },
           {
             name: 'Red Blood Cells (mi/mm³)',
             type: 'line',
-            data: this.heartbit.extract('redBloodCells'),
+            data: this.bloodComponentService.extract(this.records, 'redBloodCells'),
             //data: [1, 2, 4, 8, 16, 32, 64, 128, 256],
           },
           {
             name: 'White Blood Cells (mi/cm³)',
             type: 'line',
-            data: this.heartbit.extract('whiteBloodCells'),
+            data: this.bloodComponentService.extract(this.records, 'whiteBloodCells'),
             //data: [1 / 2, 1 / 4, 1 / 8, 1 / 16, 1 / 32, 1 / 64, 1 / 128, 1 / 256, 1 / 512],
           },
           {
             name: 'Platelet (/cm³)',
             type: 'line',
-            data: this.heartbit.extract('platelet'),
+            data: this.bloodComponentService.extract(this.records, 'platelet'),
           },
           {
             name: 'Iron (ug/dL)',
             type: 'line',
-            data: this.heartbit.extract('iron'),
+            data: this.bloodComponentService.extract(this.records, 'iron'),
           },
         ],
       };

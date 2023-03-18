@@ -78,7 +78,6 @@ export class PatientTableComponent {
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private service: HeartbitApiService, private datePipe: DatePipe, private router: Router) {
-    const data = this.service.listPatientsMock()
     this.refresh()
   }
 
@@ -128,7 +127,6 @@ export class PatientTableComponent {
     .takeUntil(this.ngUnsubscribe)
     .subscribe(
       response => {
-        console.log('editPatient:', response.json())
         event.confirm.resolve(event.newData)
       },
       error => {
@@ -146,7 +144,6 @@ export class PatientTableComponent {
     .takeUntil(this.ngUnsubscribe)
     .subscribe(
       response => {
-        console.log('addPatient:', response.json())
         event.confirm.resolve(event.newData)
       },
       error => {

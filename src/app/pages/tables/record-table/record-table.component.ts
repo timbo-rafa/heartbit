@@ -158,7 +158,6 @@ export class RecordTableComponent implements CanActivate {
     var editRecordObs = this.service.editRecord(event.data.patient, event.data.id, event.newData)
     editRecordObs.subscribe(
       response => {
-        console.log('editRecord:', response.json())
         event.confirm.resolve(event.newData)
       },
       error => {
@@ -174,7 +173,6 @@ export class RecordTableComponent implements CanActivate {
     var addRecordObs = this.service.addRecord(this.patientId, event.newData)
     addRecordObs.subscribe(
       response => {
-        console.log('addRecord:', response.json())
         event.confirm.resolve(event.newData)
       },
       error => {

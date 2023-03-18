@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router'
 import { HeartbitApiService } from '../../../@core/data/heartbit-api.service'
 import { Subject } from "rxjs/Subject";
 import 'rxjs/add/operator/takeUntil';
+import { BloodComponentService } from '../../../@core/data/blood/blood-component.service';
 
 @Component({
   selector: 'ngx-echarts-bar',
@@ -23,7 +24,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
-  constructor(private theme: NbThemeService, private router: ActivatedRoute, private heartbit: HeartbitApiService) {
+  constructor(private theme: NbThemeService, private router: ActivatedRoute, private heartbit: HeartbitApiService, private bloodComponentService: BloodComponentService) {
   }
 
   ngAfterViewInit() {
@@ -79,7 +80,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
         xAxis: [
           {
             type: 'category',
-            data: this.heartbit.extractRecordDates(),
+            data: this.bloodComponentService.extractRecordDates(this.records),
             axisTick: {
               alignWithLabel: true,
             },
@@ -121,7 +122,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
           name: this.bloodComponent,
           type: 'bar',
           barWidth: '60%',
-          data: this.heartbit.extractDataForBarEChart(this.bloodComponent, colors)
+          data: this.bloodComponentService.extractDataForBarEChart(this.records,this.bloodComponent, colors)
           ,markPoint : {
             data : [
                 {type : 'max', name: 'max'},
@@ -171,7 +172,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
 
   minY() : Number {
     var minDesirable : Number = this.heartbit.levels[this.bloodComponent].min
-    var minLevel : Number = this.heartbit.extractMinLevel(this.bloodComponent)
+    var minLevel : Number = this.bloodComponentService.extractMinLevel(this.records,this.bloodComponent)
 
     //return minLevel;
     return minLevel < minDesirable ? minLevel : minDesirable;
@@ -179,7 +180,7 @@ export class EchartsBarComponent implements AfterViewInit, OnDestroy {
 
   maxY() : Number {
     var maxDesirable : Number = this.heartbit.levels[this.bloodComponent].max
-    var maxLevel : Number = this.heartbit.extractMaxLevel(this.bloodComponent)
+    var maxLevel : Number = this.bloodComponentService.extractMaxLevel(this.records, this.bloodComponent)
 
     return maxLevel > maxDesirable ? maxLevel : maxDesirable;
   }
