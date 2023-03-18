@@ -35,14 +35,6 @@ export class HeartbitApiService extends BloodComponentService implements CanActi
     return this.recordsUrl(patientId) + '/' + recordId
   }
 
-  public listPatientsMock() {
-    this.listPatients().subscribe(
-      res => console.log('listPatients:', res),
-      error => console.error('listPatients error:', error)
-    )
-    return this.data;
-  }
-
   // Patients
   public listPatients() {
     return this.http.get(patientsUrl)

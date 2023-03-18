@@ -21,7 +21,6 @@ export class BloodComponentService {
       filterDesirableLevelsFromLastSample (records : iRecord[], bloodComponent): any[] {
         var sortedByDateRecords = records.sort(this.compareRecordsByDate)
         var arrayWithLastRecord = [ sortedByDateRecords[sortedByDateRecords.length - 1] ]
-        console.log('Last Record dated ', arrayWithLastRecord[0].createdAt.toString())
         return arrayWithLastRecord.filter( (record) => {
           return this.outsideDesirableLevels(defaultBloodComponentLevels[bloodComponent] ,record[bloodComponent])  
         })
@@ -58,7 +57,6 @@ export class BloodComponentService {
         records.map( function (record) {
           return record[bloodComponent]
         })
-        console.log('extract(', bloodComponent, ret)
         return ret
       }
     
@@ -77,7 +75,6 @@ export class BloodComponentService {
     // v2.0 for echarts-bar
     
       extractRecordDates(records: iRecord[]) {
-        console.log(records);
         return records.map( record => new Date(record['createdAt']).toDateString())
       }
     
@@ -89,7 +86,7 @@ export class BloodComponentService {
       }
     
       extractDataForBarEChart(records: iRecord[], bloodComponent: string, colors): any[] {  
-        var r = records.map( (record) => {
+        var eChartRecords = records.map( (record) => {
           return {
             value: record[bloodComponent],
             itemStyle: {
@@ -102,8 +99,7 @@ export class BloodComponentService {
             }
           }
         })
-        console.log('extractDataForBarEChart:', bloodComponent, r)
-        return r
+        return eChartRecords
       }
     
       barColors(records: iRecord[], bloodComponent: string, colors): string[] {

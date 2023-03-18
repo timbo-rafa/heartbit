@@ -102,7 +102,6 @@ export class RecordTableComponent implements CanActivate {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.patientId = params['patientId']
-        console.log('params', params, this.patientId)
         this.refresh()
       },
       (err) => {
@@ -113,7 +112,6 @@ export class RecordTableComponent implements CanActivate {
   private refresh() {
     this.service.listRecords(this.patientId).subscribe(
       records => {
-        console.log('listRecords:', records)
         this.source.load(records)
       },
       err => console.error('listRecords subcribe ERROR', err)
@@ -184,7 +182,6 @@ export class RecordTableComponent implements CanActivate {
   }
 
   onUserRowSelect(event): void {
-    console.log('click', event);
   }
 
 

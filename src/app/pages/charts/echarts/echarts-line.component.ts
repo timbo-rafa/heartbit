@@ -24,8 +24,6 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('ngOnInit')
-
     this.router.params.subscribe(
       (params: Params) => {
         var paramPatientId = params['patientId']
@@ -49,7 +47,6 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
   }
 
   plotChart() {
-    console.log('plotChart', this.records)
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
       const colors: any = config.variables;
       const echarts: any = config.variables.echarts;
@@ -155,73 +152,6 @@ export class EchartsLineComponent implements OnInit, OnDestroy {
     );
   }
 
-  /*
-  colors(colors) {
-    if (this.records.length == 0)
-      return [colors.success, colors.primary, colors.info, '#ffffff', '#000000']
-    else return [
-      this.bloodComponentColor('glucose', colors.success, colors.danger),
-      this.bloodComponentColor('redBloodCells', colors.primary, colors.danger),
-      this.bloodComponentColor('whiteBloodCells', colors.info, colors.danger),
-      this.bloodComponentColor('platelet', '#ffffff', colors.danger),
-      this.bloodComponentColor('iron', '#000000', colors.danger)
-    ]
-  }
-
-  bloodComponentColor(bloodComponent, desirableColor, dangerColor='#ff4c6a') {
-    var emptyIfWithinDesirableLevels: any[] = this.filterDesirableLevelsFromLastSample(bloodComponent)
-    if (emptyIfWithinDesirableLevels.length > 0) return dangerColor
-    return desirableColor
-  }
-
-  filterDesirableLevelsFromLastSample (bloodComponent): any[] {
-    var sortedByDateRecords = this.records.sort(this.compareRecordsByDate)
-    var arrayWithLastRecord = [ sortedByDateRecords[sortedByDateRecords.length - 1] ]
-    console.log('Last Record dated ', arrayWithLastRecord[0].createdAt.toString())
-    return arrayWithLastRecord.filter( (record) => {
-      return this.outsideDesirableLevels(this.heartbit.levels[bloodComponent] ,record[bloodComponent])  
-    })
-  }
-
-  compareRecordsByDate(record1, record2) {
-    var date1 = new Date(record1.createdAt)
-    var date2 = new Date(record2.createdAt)
-
-    if (date1 == date2) return 0
-    if (date1 >  date2) return 1
-
-  }
-
-  filterDesirableLevelsFromAll (bloodComponent): any[] {
-    return this.records.filter( (record) => {
-      return this.outsideDesirableLevels(this.heartbit.levels[bloodComponent] ,record[bloodComponent])  
-    })
-  }
-
-  outsideDesirableLevels(bloodComponent, value): boolean {
-    return !this.withinDesirableLevels(bloodComponent, value)
-  }
-  
-  withinDesirableLevels(bloodComponent, val): boolean {
-    var value = parseFloat(val)
-    if (value < bloodComponent.min) return false
-    if (value > bloodComponent.max) return false
-    return true
-  }
-  
-  extract(bloodComponent: string) {
-    var ret = 
-     this.records.map( function (record) {
-      return record[bloodComponent]
-    })
-    console.log('extract(', bloodComponent, ret)
-    return ret
-  }
-
-  extractDate() {
-    return this.records.map( record => new Date(record['createdAt']).toDateString())
-  }
-  */
   ngOnDestroy(): void {
     this.themeSubscription.unsubscribe();
   }

@@ -155,8 +155,6 @@ export class PatientTableComponent {
   }
 
   onUserRowSelect(event): void {
-    console.log('onUserRowSelect', event)
-    //console.log('event', event.data._id, event.data.id)
     this.service.patientId = event.data.id
     this.service.setPatientId(event.data.id)
     
