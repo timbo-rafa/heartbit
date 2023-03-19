@@ -1,6 +1,6 @@
 {
   "name": "ngx-admin",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -28,7 +28,8 @@
     "prepush": "npm run lint:ci",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
     "postinstall": "ng build --aot -prod",
-    "gh-pages": "ng build --prod --base-href /heartbit/ && gh-pages -d dist"
+    "deploy-github-io": "ng build --prod --base-href /heartbit/ && gh-pages -d dist",
+    "deploy-rtimbo-com": "ng build --prod --base-href \"https://heartbit.rtimbo.com/\" && gh-pages -d dist"
   },
   "dependencies": {
     "@agm/core": "1.0.0-beta.0",
