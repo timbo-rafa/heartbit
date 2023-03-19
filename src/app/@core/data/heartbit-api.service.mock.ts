@@ -7,6 +7,7 @@ import { bloodRecordMock } from './blood/blood-record.mock';
 import { iRecord } from './blood/blood-record.type';
 import { HeartbitApiService } from './heartbit-api';
 import { patientsMock } from './patient.mock';
+import {v4 as uuidv4} from 'uuid'
 
 @Injectable()
 export class HeartbitApiMockService implements CanActivate {
@@ -55,12 +56,14 @@ export class HeartbitApiMockService implements CanActivate {
 
   // Patients
   public listPatients() {
-    return Observable.of(this.patientsData)
+    return Observable.of([...this.patientsData])
   }
 
   public addPatient(patient) {
-    this.patientsData.push(patient);
-    return Observable.of(this.patientsData);
+    const id = patient.id || uuidv4();
+    const newPatient = {...patient, id};
+    this.patientsData.push(newPatient);
+    return Observable.of(newPatient);
   }
 
   public deletePatient(id) {
@@ -74,7 +77,7 @@ export class HeartbitApiMockService implements CanActivate {
     if (idx) {
       this.patientsData[idx] = newData
     }
-    return Observable.of(this.patientsData)
+    return Observable.of(newData)
   }
 
   //Records
@@ -82,22 +85,24 @@ export class HeartbitApiMockService implements CanActivate {
     return Observable.of(this.bloodRecordData.filter(record => record.patient === patientId))
   }
   public addRecord(patientId, record) {
-    this.bloodRecordData.push({createdAt: new Date(), ...record, patient: patientId})
+    const id = record.id || uuidv4();
+    const newRecord = {createdAt: new Date(), ...record, patient: patientId, id};
+    this.bloodRecordData.push(newRecord)
     this.bloodRecordData.sort((r1, r2) => r1.createdAt.getTime() - r2.createdAt.getTime())
-    return Observable.of(this.bloodRecordData)
+    return Observable.of(newRecord)
   }
   public deleteRecord(patientId, id) {
     this.bloodRecordData = this.bloodRecordData.filter(record => record.patient !== patientId || record.id !== id)
     return Observable.of(this.bloodRecordData)
   }
-  public editRecord(patientId, id, newRecord) {
+  public editRecord(patientId, id, editedRecord) {
     const idx = this.bloodRecordData.findIndex(record => record.patient !== patientId || record.id !== id)
 
     if (idx) {
-      this.bloodRecordData[idx] = newRecord
+      this.bloodRecordData[idx] = editedRecord
       this.bloodRecordData.sort((r1, r2) => r1.createdAt.getTime() - r2.createdAt.getTime())
     }
-    return Observable.of(this.bloodRecordData)
+    return Observable.of(editedRecord)
   }
 
   public isPatientSelected(): boolean {

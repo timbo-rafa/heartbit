@@ -138,19 +138,18 @@ export class PatientTableComponent {
 
   onCreateConfirm(event) {
     this.parseDate(event)
-
     var addPatientObs = this.service.addPatient(event.newData)
     addPatientObs
     .takeUntil(this.ngUnsubscribe)
     .subscribe(
-      response => {
-        event.confirm.resolve(event.newData)
+      newPatient => {
+        event.confirm.resolve(newPatient)
       },
       error => {
         console.error('addPatient:', error._body)
         event.confirm.reject()
       },
-      () => this.refresh()
+      //() => this.refresh()
     )
   }
 
